@@ -1,13 +1,22 @@
 package com.arksh.summer;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.arksh.common.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    public void initPresenter() {
+
+    }
+
+    @Override
+    public void initView() {
+
     }
 }

@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+apply plugin: "me.tatarka.retrolambda"
+
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
 
 android {
     compileSdkVersion 25
@@ -13,17 +18,43 @@ android {
     }
     buildTypes {
         release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //apk命名
+            android.applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        //这里修改apk文件名
+                        def fileName = "AndroidFire-${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
+        debug{
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    //打包不检查
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    testCompile 'junit:junit:4.12'
+    //t图片选择器 https://github.com/smuyyh/ImageSelector
+    compile 'com.yuyh.imgsel:library:1.2.0'
+    //视频播放控件 https://github.com/lipangit/JieCaoVideoPlayer
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
+    //通用对话框 https://github.com/weavey/NormalSelectDialog
+    compile 'com.lai.weavey:dialog:1.1'
+    //用户指引 https://github.com/yilylong/UserGuideView
+    compile 'com.zhl.userguideview:Userguidelibrary:1.0.1'
+    //二维码 https://github.com/yipianfengye/android-zxingLibrary
+    compile 'cn.yipianfengye.android:zxing-library:2.0'
+    compile project(path: ':library:common')
 }
