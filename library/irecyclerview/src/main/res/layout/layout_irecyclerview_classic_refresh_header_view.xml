@@ -35,7 +35,6 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:textColor="?attr/dayNightTwoTextColor"
-        android:dayNightTwoTextColorAttr="dayNightTwoTextColor"
         android:layout_centerInParent="true"
         android:gravity="center" />
 

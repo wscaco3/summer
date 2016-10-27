@@ -66,7 +66,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
     public RxManager mRxManager;
     public Unbinder unbinder;
 
-        @Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRxManager=new RxManager();
