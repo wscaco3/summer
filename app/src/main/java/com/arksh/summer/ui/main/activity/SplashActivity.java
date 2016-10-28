@@ -39,7 +39,7 @@ public class SplashActivity extends BaseActivity {
         ObjectAnimator oa2 = ObjectAnimator.ofPropertyValuesHolder(tvName,alpha,scaleX,scaleY);
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(oa1,oa2);
+        animatorSet.play(oa1).after(oa2);
         animatorSet.setInterpolator(new AccelerateInterpolator());
         animatorSet.setDuration(2000);
         animatorSet.addListener(new Animator.AnimatorListener() {
