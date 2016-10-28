@@ -12,12 +12,12 @@ import android.view.Window;
 import com.arksh.common.BuildConfig;
 import com.arksh.common.R;
 import com.arksh.common.app.AppManager;
+import com.arksh.common.mode.ChangeModeController;
 import com.arksh.common.rx.RxManager;
 import com.arksh.common.utils.TUtil;
 import com.arksh.common.utils.ToastUitl;
 import com.arksh.common.widget.LoadingDialog;
 import com.arksh.common.widget.StatusBarCompat;
-import com.arksh.common.mode.ChangeModeController;
 import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;

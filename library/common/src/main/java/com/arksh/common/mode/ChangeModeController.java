@@ -30,23 +30,23 @@ public class ChangeModeController {
     /**
      * 属性背景
      */
-    private static final String ATTR_BACKGROUND = "dayNightBackgroundAttr";
+    private static String ATTR_BACKGROUND = "?"+R.attr.dayNightBackground;
     /**
      * 属性背景图片
      */
-    private static final String ATTR_BACKGROUND_DRAWABLE = "dayNightBackgroundDrawableAttr";
+    private static String ATTR_BACKGROUND_DRAWABLE = "?"+R.attr.dayNightBackgroundDrawable;
     /**
      * 属性一级字体颜色
      */
-    private static final String ATTR_TEXTCOLOR = "dayNightOneTextColorAttr";
+    private static String ATTR_TEXTCOLOR =  "?"+R.attr.dayNightOneTextColor;
     /**
      * 属性二级字体颜色
      */
-    private static final String ATTR_TWO_TEXTCOLOR = "dayNightTwoTextColorAttr";
+    private static String ATTR_TWO_TEXTCOLOR = "?"+R.attr.dayNightTwoTextColor;
     /**
      * 属性三级字体颜色
      */
-    private static final String ATTR_THREE_TEXTCOLOR = "dayNightThreeTextColorAttr";
+    private static String ATTR_THREE_TEXTCOLOR = "?"+R.attr.dayNightThreeTextColor;
 
     private static List<AttrEntity<View>> mBackGroundViews;
     private static List<AttrEntity<View>> mBackGroundDrawableViews;
@@ -80,7 +80,7 @@ public class ChangeModeController {
      * @param activity 上下文
      * @return
      */
-    public ChangeModeController init(final Activity activity, final Class mClass){
+    public ChangeModeController init(final Activity activity){
         init();
         LayoutInflaterCompat.setFactory(LayoutInflater.from(activity), (parent, name, context, attrs) -> {
             View view = null;
@@ -102,29 +102,28 @@ public class ChangeModeController {
                     }
                 }
                 if(view != null){
-               // Log.e("TAG", "name = " + name);
+                //Log.e("TAG", "name = " + name);
                     for (int i = 0; i < attrs.getAttributeCount(); i++) {
-//                            Log.e("TAG", attrs.getAttributeName(i) + " , " + attrs.getAttributeValue(i));
-                        if (attrs.getAttributeName(i).equals(ATTR_BACKGROUND)) {
-                            mBackGroundViews.add(new AttrEntity<View>(view,getAttr(mClass,attrs.getAttributeValue(i))));
+                        //Log.e("TAG", attrs.getAttributeName(i) + " , " + attrs.getAttributeValue(i));
+                        if (attrs.getAttributeValue(i).equals(ATTR_BACKGROUND)) {
+                            mBackGroundViews.add(new AttrEntity<>(view,R.attr.dayNightBackground));
                         }
-                        if (attrs.getAttributeName(i).equals(ATTR_TEXTCOLOR)) {
-                            mOneTextColorViews.add(new AttrEntity<TextView>((TextView)view,getAttr(mClass,attrs.getAttributeValue(i))));
+                        if (attrs.getAttributeValue(i).equals(ATTR_TEXTCOLOR)) {
+                            mOneTextColorViews.add(new AttrEntity<>((TextView)view,R.attr.dayNightOneTextColor));
                         }
-                        if (attrs.getAttributeName(i).equals(ATTR_TWO_TEXTCOLOR)) {
-                            mOneTextColorViews.add(new AttrEntity<TextView>((TextView)view,getAttr(mClass,attrs.getAttributeValue(i))));
+                        if (attrs.getAttributeValue(i).equals(ATTR_TWO_TEXTCOLOR)) {
+                            mOneTextColorViews.add(new AttrEntity<>((TextView)view,R.attr.dayNightTwoTextColor));
                         }
-                        if (attrs.getAttributeName(i).equals(ATTR_THREE_TEXTCOLOR)) {
-                            mOneTextColorViews.add(new AttrEntity<TextView>((TextView)view,getAttr(mClass,attrs.getAttributeValue(i))));
+                        if (attrs.getAttributeValue(i).equals(ATTR_THREE_TEXTCOLOR)) {
+                            mOneTextColorViews.add(new AttrEntity<>((TextView)view,R.attr.dayNightThreeTextColor));
                         }
-                        if (attrs.getAttributeName(i).equals(ATTR_BACKGROUND_DRAWABLE)) {
-                            mBackGroundDrawableViews.add(new AttrEntity<View>(view,getAttr(mClass,attrs.getAttributeValue(i))));
+                        if (attrs.getAttributeValue(i).equals(ATTR_BACKGROUND_DRAWABLE)) {
+                            mBackGroundDrawableViews.add(new AttrEntity<View>(view,R.attr.dayNightBackgroundDrawable));
                         }
-
                     }
                 }
             }catch (Exception e){
-                e.printStackTrace();
+                //e.printStackTrace();
             }
             return view;
         });
@@ -293,12 +292,9 @@ public class ChangeModeController {
 
                 }
             });
-            objectAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator animation) {
-                    float alpha = (Float) animation.getAnimatedValue();
-                    view.setAlpha(alpha);
-                }
+            objectAnimator.addUpdateListener(animation -> {
+                float alpha = (Float) animation.getAnimatedValue();
+                view.setAlpha(alpha);
             });
             objectAnimator.start();
         }
@@ -370,7 +366,7 @@ public class ChangeModeController {
      * @return
      */
     public ChangeModeController addTextColor(View view, int colorId) {
-       mOneTextColorViews.add(new AttrEntity<TextView>((TextView) view,colorId));
+       mOneTextColorViews.add(new AttrEntity<>((TextView) view,colorId));
         return this;
     }
     /**
@@ -380,7 +376,7 @@ public class ChangeModeController {
      * @return
      */
     public ChangeModeController addTwoTextColor(View view, int colorId) {
-        mTwoTextColorViews.add(new AttrEntity<TextView>((TextView) view,colorId));
+        mTwoTextColorViews.add(new AttrEntity<>((TextView) view,colorId));
         return this;
     }
     /**
@@ -390,7 +386,7 @@ public class ChangeModeController {
      * @return
      */
     public ChangeModeController addThreeTextColor(View view, int colorId) {
-        mThreeTextColorViews.add(new AttrEntity<TextView>((TextView) view,colorId));
+        mThreeTextColorViews.add(new AttrEntity<>((TextView) view,colorId));
         return this;
     }
 

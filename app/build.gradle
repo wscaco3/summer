@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: "me.tatarka.retrolambda"
 apply plugin: 'android-apt'
+
 def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
@@ -33,7 +34,7 @@ android {
                 }
             }
         }
-        debug{
+        debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
         }
     }
@@ -51,15 +52,16 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //t图片选择器 https://github.com/smuyyh/ImageSelector
-    compile 'com.yuyh.imgsel:library:1.2.0'
     //视频播放控件 https://github.com/lipangit/JieCaoVideoPlayer
-    compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
     //通用对话框 https://github.com/weavey/NormalSelectDialog
-    compile 'com.lai.weavey:dialog:1.1'
     //用户指引 https://github.com/yilylong/UserGuideView
-    compile 'com.zhl.userguideview:Userguidelibrary:1.0.1'
     //二维码 https://github.com/yipianfengye/android-zxingLibrary
-    compile 'cn.yipianfengye.android:zxing-library:2.0'
     compile project(path: ':library:common')
+    compile 'com.yuyh.imgsel:library:1.2.0'
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
+    compile 'com.lai.weavey:dialog:1.1'
+    compile 'com.zhl.userguideview:Userguidelibrary:1.0.1'
+    compile 'cn.yipianfengye.android:zxing-library:2.0'
+    compile 'com.android.support:support-v4:25.0.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
