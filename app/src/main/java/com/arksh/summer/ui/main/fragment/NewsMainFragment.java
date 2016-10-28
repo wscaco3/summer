@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.arksh.common.base.BaseFragment;
+import com.arksh.common.utils.LogUtils;
 import com.arksh.summer.R;
 import com.arksh.summer.app.AppConstant;
 import com.arksh.summer.bean.NewsChannelTable;
@@ -58,7 +59,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
-
+        toolBar.setTitle(newsChannelsMine.get(0).getNewsChannelName());
     }
 
     @Override
