@@ -1,5 +1,6 @@
 package com.arksh.summer.ui.main.presenter;
 
+import com.arksh.common.utils.LogUtils;
 import com.arksh.summer.ui.main.contract.NewsMainContract;
 
 /**
@@ -9,6 +10,6 @@ import com.arksh.summer.ui.main.contract.NewsMainContract;
 public class NewsMainPresenter extends NewsMainContract.Presenter {
     @Override
     public void lodeMineChannelsRequest() {
-
+        LogUtils.loge("lodeMineChannelsRequest----");
     }
 }

@@ -33,7 +33,6 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import cn.hugeterry.updatefun.UpdateFunGO;
 import cn.hugeterry.updatefun.config.UpdateKey;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -43,8 +42,6 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.tab_layout)
     CommonTabLayout tabLayout;
-    @BindView(R.id.bt_theme)
-    Button btTheme;
 
     private NewsMainFragment newsMainFragment;
     private PhotoMainFragment photoMainFragment;
@@ -262,7 +259,7 @@ public class MainActivity extends BaseActivity {
         ChangeModeController.onDestory();
     }
 
-    /*
+    /**
     * 入口
     * */
     public static void startAction(Activity activity) {
@@ -271,12 +268,4 @@ public class MainActivity extends BaseActivity {
         activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    boolean show = true;
-
-    @OnClick(R.id.bt_theme)
-    public void dayNightToggle(){
-        show = !show;
-        RxBus.getInstance().post(AppConstant.MENU_SHOW_HIDE,show);
-        ChangeModeController.toggleThemeSetting(this);
-    }
 }

@@ -57,6 +57,7 @@ dependencies {
     //用户指引 https://github.com/yilylong/UserGuideView
     //二维码 https://github.com/yipianfengye/android-zxingLibrary
     compile project(path: ':library:common')
+    compile project(path: ':library:irecyclerview')
     compile 'com.yuyh.imgsel:library:1.2.0'
     compile 'fm.jiecao:jiecaovideoplayer:4.8.1'
     compile 'com.lai.weavey:dialog:1.1'
