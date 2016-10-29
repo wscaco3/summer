@@ -8,16 +8,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.arksh.common.app.AppConfig;
 import com.arksh.common.base.BaseActivity;
 import com.arksh.common.mode.ChangeModeController;
-import com.arksh.common.rx.RxBus;
 import com.arksh.common.utils.LogUtils;
 import com.arksh.summer.R;
 import com.arksh.summer.app.AppConstant;
@@ -203,7 +200,6 @@ public class MainActivity extends BaseActivity {
         }
         valueAnimator.addUpdateListener(valueAnimator1 -> {
             layoutParams.height = (int) valueAnimator1.getAnimatedValue();
-            Log.e("AAA","------"+layoutParams.height);
             tabLayout.setLayoutParams(layoutParams);
         });
         AnimatorSet animatorSet=new AnimatorSet();

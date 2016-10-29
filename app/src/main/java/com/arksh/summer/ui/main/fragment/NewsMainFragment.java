@@ -3,26 +3,27 @@ package com.arksh.summer.ui.main.fragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.arksh.common.base.BaseFragment;
-import com.arksh.common.utils.LogUtils;
+import com.arksh.common.base.BaseFragmentAdapter;
+import com.arksh.common.mode.ChangeModeController;
 import com.arksh.summer.R;
 import com.arksh.summer.app.AppConstant;
 import com.arksh.summer.bean.NewsChannelTable;
 import com.arksh.summer.ui.main.contract.NewsMainContract;
 import com.arksh.summer.ui.main.model.NewsMainModel;
 import com.arksh.summer.ui.main.presenter.NewsMainPresenter;
+import com.arksh.summer.ui.news.fragment.NewsFrament;
+import com.arksh.summer.utils.MyUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -40,6 +41,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
     ViewPager viewPager;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    private BaseFragmentAdapter fragmentAdapter;
 
     @Override
     protected int getLayoutResource() {
@@ -59,7 +61,45 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
-        toolBar.setTitle(newsChannelsMine.get(0).getNewsChannelName());
+        if(newsChannelsMine != null){
+            List<String> channeNames = new ArrayList<>();
+            List<Fragment> mNewsFragmentList = new ArrayList<>();
+            for(NewsChannelTable nc:newsChannelsMine){
+                channeNames.add(nc.getNewsChannelName());
+                mNewsFragmentList.add(createListFragments(nc));
+            }
+            fragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(),mNewsFragmentList,channeNames);
+            viewPager.setAdapter(fragmentAdapter);
+            tabs.setupWithViewPager(viewPager);
+            MyUtils.dynamicSetTabLayoutMode(tabs);
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
+    }
+
+
+    private NewsFrament createListFragments(NewsChannelTable newsChannel) {
+        NewsFrament fragment = new NewsFrament();
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.NEWS_ID, newsChannel.getNewsChannelId());
+        bundle.putString(AppConstant.NEWS_TYPE, newsChannel.getNewsChannelType());
+        bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -77,16 +117,9 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
     @OnClick(R.id.add_channel_iv)
     public void onClickAdd() {
+        ChangeModeController.toggleThemeSetting(getActivity());
     }
 
     @OnClick(R.id.fab)
