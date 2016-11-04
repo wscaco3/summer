@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
 
-    <TextView
-        android:text="TextView"
+    <com.aspsine.irecyclerview.IRecyclerView
+        android:id="@+id/irc"
+        app:loadMoreEnabled="true"
+        android:background="?attr/dayNightBackground"
+        app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"
+        app:refreshEnabled="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
-</LinearLayout>
+        android:layout_height="match_parent"></com.aspsine.irecyclerview.IRecyclerView>
+
+    <com.arksh.common.widget.LoadingTip
+        android:id="@+id/loadTip"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.arksh.common.widget.LoadingTip>
+</FrameLayout>
