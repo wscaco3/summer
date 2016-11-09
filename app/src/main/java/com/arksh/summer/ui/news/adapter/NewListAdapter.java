@@ -10,6 +10,8 @@ import com.arksh.summer.R;
 import com.arksh.summer.app.AppApplication;
 import com.arksh.summer.bean.NewsPhotoDetail;
 import com.arksh.summer.bean.NewsSummary;
+import com.arksh.summer.ui.news.activity.NewsDetailActivity;
+import com.arksh.summer.ui.news.activity.NewsPhotoDetailActivity;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
@@ -82,7 +84,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         holder.setText(R.id.news_summary_digest_tv, digest);
         holder.setImageUrl(R.id.news_summary_photo_iv, imgSrc);
         holder.setOnClickListener(R.id.rl_root, view -> {
-//                NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), newsSummary.getPostid(), newsSummary.getImgsrc());
+             NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), newsSummary.getPostid(), newsSummary.getImgsrc());
         });
     }
 
@@ -99,17 +101,15 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<NewsSummary> {
         holder.setText(R.id.news_summary_title_tv, title);
         holder.setText(R.id.news_summary_ptime_tv, ptime);
         setImageView(holder, newsSummary);
-        holder.setOnClickListener(R.id.ll_root, view -> {
-//                NewsPhotoDetailActivity.startAction(mContext, getPhotoDetail(newsSummary));
-        });
+        holder.setOnClickListener(R.id.ll_root, view -> NewsPhotoDetailActivity.startAction(mContext, getPhotoDetail(newsSummary)));
     }
 
-//    private NewsPhotoDetail getPhotoDetail(NewsSummary newsSummary) {
-//        NewsPhotoDetail newsPhotoDetail = new NewsPhotoDetail();
-//        newsPhotoDetail.setTitle(newsSummary.getTitle());
-//        setPictures(newsSummary, newsPhotoDetail);
-//        return newsPhotoDetail;
-//    }
+    private NewsPhotoDetail getPhotoDetail(NewsSummary newsSummary) {
+        NewsPhotoDetail newsPhotoDetail = new NewsPhotoDetail();
+        newsPhotoDetail.setTitle(newsSummary.getTitle());
+        setPictures(newsSummary, newsPhotoDetail);
+        return newsPhotoDetail;
+    }
 
     private void setPictures(NewsSummary newsSummary, NewsPhotoDetail newsPhotoDetail) {
         List<NewsPhotoDetail.Picture> pictureList = new ArrayList<>();

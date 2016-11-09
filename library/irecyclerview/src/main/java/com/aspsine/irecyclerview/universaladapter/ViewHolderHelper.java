@@ -24,6 +24,7 @@ import com.arksh.common.utils.ImageLoaderUtils;
 
 import java.io.File;
 
+
 public class ViewHolderHelper extends RecyclerView.ViewHolder {
     private SparseArray<View> mViews;
     private int mPosition;

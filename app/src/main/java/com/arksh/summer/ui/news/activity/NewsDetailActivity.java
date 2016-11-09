@@ -6,19 +6,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.arksh.common.base.BaseActivity;
+import com.arksh.common.rx.RxSchedulers;
+import com.arksh.common.utils.TimeUtil;
 import com.arksh.summer.R;
 import com.arksh.summer.app.AppConstant;
 import com.arksh.summer.bean.NewsDetail;
@@ -26,10 +29,15 @@ import com.arksh.summer.ui.news.contract.NewsDetailContract;
 import com.arksh.summer.ui.news.model.NewsDetailModel;
 import com.arksh.summer.ui.news.presenter.NewsDetailPresenter;
 import com.arksh.summer.widget.URLImageGetter;
+import com.bumptech.glide.Glide;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscriber;
 
 /**
  * Created by Administrator on 2016/11/8 0008.
@@ -80,7 +88,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
             //让新的Activity从一个小的范围扩大到全屏
             ActivityOptionsCompat options = ActivityOptionsCompat
                     .makeScaleUpAnimation(view, view.getWidth() / 2, view.getHeight() / 2, 0, 0);
-            ActivityCompat.startActivity(mContext, intent, options.toBundle());
+            ActivityCompat.startActivity((Activity) mContext, intent, options.toBundle());
         }
 
     }
@@ -145,7 +153,79 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
 
     @Override
     public void returnOneNewsData(NewsDetail newsDetail) {
+        mShareLink = newsDetail.getShareLink();
+        mNewsTitle = newsDetail.getTitle();
+        String newsSource = newsDetail.getSource();
+        String newsTime = TimeUtil.formatDate(newsDetail.getPtime());
+        String newsBody = newsDetail.getBody();
+        String NewsImgSrc = getImgSrcs(newsDetail);
 
+        setToolBarLayout(mNewsTitle);
+        //mNewsDetailTitleTv.setText(newsTitle);
+        newsDetailFromTv.setText(getString(R.string.news_from, newsSource, newsTime));
+        setNewsDetailPhotoIv(NewsImgSrc);
+        setNewsDetailBodyTv(newsDetail, newsBody);
+    }
+
+    private String getImgSrcs(NewsDetail newsDetail) {
+        List<NewsDetail.ImgBean> imgSrcs = newsDetail.getImg();
+        String imgSrc;
+        if (imgSrcs != null && imgSrcs.size() > 0) {
+            imgSrc = imgSrcs.get(0).getSrc();
+        } else {
+            imgSrc = getIntent().getStringExtra(AppConstant.NEWS_IMG_RES);
+        }
+        return imgSrc;
+    }
+
+    private void setToolBarLayout(String newsTitle) {
+        toolbarLayout.setTitle(newsTitle);
+        toolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.white));
+        toolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.primary_text_white));
+    }
+
+    private void setNewsDetailPhotoIv(String imgSrc) {
+        Glide.with(this).load(imgSrc)
+                .fitCenter()
+                .error(com.arksh.common.R.drawable.ic_empty_picture)
+                .crossFade().into(newsDetailPhotoIv);
+    }
+
+
+    private void setNewsDetailBodyTv(final NewsDetail newsDetail, final String newsBody) {
+        mRxManager.add(Observable.timer(500, TimeUnit.MILLISECONDS)
+                .compose(RxSchedulers.io_main())
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onCompleted() {
+                        progressBar.setVisibility(View.GONE);
+                        fab.setVisibility(View.VISIBLE);
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        progressBar.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+                        setBody(newsDetail, newsBody);
+                    }
+                }));
+    }
+
+    private void setBody(NewsDetail newsDetail, String newsBody) {
+        int imgTotal = newsDetail.getImg().size();
+        if (isShowBody(newsBody, imgTotal)) {
+//              mNewsDetailBodyTv.setMovementMethod(LinkMovementMethod.getInstance());//加这句才能让里面的超链接生效,实测经常卡机崩溃
+            mUrlImageGetter = new URLImageGetter(newsDetailBodyTv, newsBody, imgTotal);
+            newsDetailBodyTv.setText(Html.fromHtml(newsBody, mUrlImageGetter, null));
+        } else {
+            newsDetailBodyTv.setText(Html.fromHtml(newsBody));
+        }
+    }
+
+    private boolean isShowBody(String newsBody, int imgTotal) {
+        return imgTotal >= 2 && newsBody != null;
     }
 
     @Override
@@ -161,13 +241,6 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
     @Override
     public void showErrorTip(String msg) {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 }
