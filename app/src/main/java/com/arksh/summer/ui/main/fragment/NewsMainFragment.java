@@ -10,13 +10,13 @@ import android.widget.ImageView;
 
 import com.arksh.common.base.BaseFragment;
 import com.arksh.common.base.BaseFragmentAdapter;
-import com.arksh.common.mode.ChangeModeController;
 import com.arksh.summer.R;
 import com.arksh.summer.app.AppConstant;
 import com.arksh.summer.bean.NewsChannelTable;
 import com.arksh.summer.ui.main.contract.NewsMainContract;
 import com.arksh.summer.ui.main.model.NewsMainModel;
 import com.arksh.summer.ui.main.presenter.NewsMainPresenter;
+import com.arksh.summer.ui.news.activity.NewsChannelActivity;
 import com.arksh.summer.ui.news.fragment.NewsFrament;
 import com.arksh.summer.utils.MyUtils;
 
@@ -119,7 +119,8 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
 
     @OnClick(R.id.add_channel_iv)
     public void onClickAdd() {
-        ChangeModeController.toggleThemeSetting(getActivity());
+        //ChangeModeController.toggleThemeSetting(getActivity());
+        NewsChannelActivity.startAction(getContext());
     }
 
     @OnClick(R.id.fab)

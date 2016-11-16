@@ -198,7 +198,7 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        //unbinder.unbind();
         if (mPresenter != null)
             mPresenter.onDestroy();
         mRxManager.clear();

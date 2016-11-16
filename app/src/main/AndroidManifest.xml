@@ -25,17 +25,26 @@
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.news.activity.PhotosDetailActivity"
+            android:theme="@style/BaseAppTheme.Trans"
+            />
         <activity android:name=".ui.main.activity.MainActivity" />
         <activity android:name=".ui.news.activity.NewsDetailActivity" />
         <activity android:name=".ui.news.activity.NewsPhotoDetailActivity" />
+        <activity android:name=".ui.news.activity.NewsBrowserActivity" />
+        <activity android:name=".ui.news.activity.NewsChannelActivity" />
 
         <!-- 友盟统计 -->
-        <meta-data android:name="UMENG_APPKEY" android:value="5812e5eab27b0a7df6000d09" />
-        <meta-data android:name="UMENG_CHANNEL" android:value="demo"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="5812e5eab27b0a7df6000d09" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="demo" />
+
     </application>
 
 </manifest>

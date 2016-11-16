@@ -119,7 +119,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter, NewsDe
         toolbar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_web_view:
-                    //NewsBrowserActivity.startAction(NewsDetailActivity.this, mShareLink, mNewsTitle);
+                    NewsBrowserActivity.startAction(NewsDetailActivity.this, mShareLink, mNewsTitle);
                     break;
                 case R.id.action_browser:
                     Intent intent = new Intent();

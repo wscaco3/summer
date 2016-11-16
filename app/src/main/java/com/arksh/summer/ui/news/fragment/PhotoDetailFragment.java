@@ -1,6 +1,5 @@
 package com.arksh.summer.ui.news.fragment;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -16,6 +15,7 @@ import butterknife.BindView;
 import rx.Observable;
 import rx.Subscriber;
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * des:图文新闻详情
@@ -43,22 +43,10 @@ public class PhotoDetailFragment extends BaseFragment{
 
     @Override
     protected void initView() {
-        Log.e("aaa",photoView.toString());
         if (getArguments() != null) {
             mImgSrc = getArguments().getString(AppConstant.PHOTO_DETAIL_IMGSRC);
         }
         initPhotoView();
-//        photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-//            @Override
-//            public void onPhotoTap(View view, float x, float y) {
-//                mRxManager.post(AppConstant.PHOTO_TAB_CLICK,"");
-//            }
-//
-//            @Override
-//            public void onOutsidePhotoTap() {
-//
-//            }
-//        });
     }
 
     private void initPhotoView() {
@@ -78,6 +66,17 @@ public class PhotoDetailFragment extends BaseFragment{
                     @Override
                     public void onNext(Long aLong) {
                         ImageLoaderUtils.displayBigPhoto(getContext(),photoView,mImgSrc);
+                        photoView.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
+                            @Override
+                            public void onPhotoTap(View view, float x, float y) {
+                                mRxManager.post(AppConstant.PHOTO_TAB_CLICK, "");
+                            }
+
+                            @Override
+                            public void onOutsidePhotoTap() {
+
+                            }
+                        });
                     }
                 }));
     }
