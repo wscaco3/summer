@@ -25,12 +25,13 @@
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.news.activity.PhotosDetailActivity"
-            android:theme="@style/BaseAppTheme.Trans"
-            />
+        <activity
+            android:name=".ui.news.activity.PhotosDetailActivity"
+            android:theme="@style/BaseAppTheme.Trans" />
         <activity android:name=".ui.main.activity.MainActivity" />
         <activity android:name=".ui.news.activity.NewsDetailActivity" />
         <activity android:name=".ui.news.activity.NewsPhotoDetailActivity" />
@@ -45,6 +46,7 @@
             android:name="UMENG_CHANNEL"
             android:value="demo" />
 
+        <activity android:name=".ui.news.activity.AboutActivity"></activity>
     </application>
 
 </manifest>
