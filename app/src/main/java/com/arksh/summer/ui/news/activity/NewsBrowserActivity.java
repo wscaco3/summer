@@ -86,4 +86,13 @@ public class NewsBrowserActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy () {
+        if (webView != null) {
+            webView.removeAllViews();
+            webView.destroy();
+        }
+        super.onDestroy();
+    }
+
 }

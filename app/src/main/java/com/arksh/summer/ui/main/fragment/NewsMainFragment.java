@@ -62,13 +62,18 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
         if(newsChannelsMine != null){
-            List<String> channeNames = new ArrayList<>();
+            List<String> channelNames = new ArrayList<>();
             List<Fragment> mNewsFragmentList = new ArrayList<>();
             for(NewsChannelTable nc:newsChannelsMine){
-                channeNames.add(nc.getNewsChannelName());
+                channelNames.add(nc.getNewsChannelName());
                 mNewsFragmentList.add(createListFragments(nc));
             }
-            fragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(),mNewsFragmentList,channeNames);
+            if (fragmentAdapter == null) {
+                fragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mNewsFragmentList, channelNames);
+            } else {
+                //刷新fragment
+                fragmentAdapter.setFragments(getChildFragmentManager(), mNewsFragmentList, channelNames);
+            }
             viewPager.setAdapter(fragmentAdapter);
             tabs.setupWithViewPager(viewPager);
             MyUtils.dynamicSetTabLayoutMode(tabs);
