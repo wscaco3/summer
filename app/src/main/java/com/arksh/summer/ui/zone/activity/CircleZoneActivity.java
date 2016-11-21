@@ -76,6 +76,12 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
         menuRed.setClosedOnTouchOutside(true);
         //点赞效果初始化
         ntb.setTitleText(getString(R.string.circle_zone));
+        //滑动列表关闭输入框
+        irc.setOnTouchListener((view, motionEvent) -> {
+            if (editTextBodyLl.getVisibility() == View.VISIBLE)
+                updateEditTextBodyVisible(View.GONE, null);
+            return false;
+        });
         //初始化头部未读消息
         zoneHeaderView = new ZoneHeaderView(this);
         zoneHeaderView.setData(getString(R.string.nick_name), AppCache.getInstance().getIcon());
