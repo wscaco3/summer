@@ -37,6 +37,8 @@
         <activity android:name=".ui.news.activity.NewsPhotoDetailActivity" />
         <activity android:name=".ui.news.activity.NewsBrowserActivity" />
         <activity android:name=".ui.news.activity.NewsChannelActivity" />
+        <activity android:name=".ui.zone.activity.CircleZoneActivity" />
+        <activity android:name=".ui.news.activity.AboutActivity" />
 
         <!-- 友盟统计 -->
         <meta-data
@@ -46,7 +48,6 @@
             android:name="UMENG_CHANNEL"
             android:value="demo" />
 
-        <activity android:name=".ui.news.activity.AboutActivity"></activity>
     </application>
 
 </manifest>

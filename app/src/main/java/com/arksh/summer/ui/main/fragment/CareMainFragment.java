@@ -7,6 +7,7 @@ import com.arksh.common.mode.ChangeModeController;
 import com.arksh.common.widget.NormalTitleBar;
 import com.arksh.summer.R;
 import com.arksh.summer.ui.news.activity.AboutActivity;
+import com.arksh.summer.ui.zone.activity.CircleZoneActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,7 +37,7 @@ public class CareMainFragment extends BaseFragment {
 
     @OnClick(R.id.ll_friend_zone)
     public void friendZone(){
-        //CircleZoneActivity.startAction(getContext());
+        CircleZoneActivity.startAction(getContext());
     }
     @OnClick(R.id.ll_daynight_toggle)
     public void dayNightToggle(){
