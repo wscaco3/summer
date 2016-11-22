@@ -1,9 +1,8 @@
 package com.arksh.summer.ui.zone;
 
 
+import com.alibaba.fastjson.JSON;
 import com.arksh.summer.bean.Result;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.util.Random;
 
@@ -25,8 +24,7 @@ public class DatasUtil {
                 "\"pictures\":\"Image/20160817/1471394954041.jpeg\",\"type\":\"0\",\"goodjobs\":[{\"id\":10,\"createTime\":1471401148000,\"publishId\":11,\"userId\":10000,\"userNickname\":\"锋\"}],\"isvalid\":\"0\",\"content\":\"你好牛逼\",\"id\":11,\"appointUserNickname\":\"\",\"nickName\":\"carter\",\"address\":\"\",\"userId\":10102,\"longitude\":\"0\",\"latitude\":\"0\"},{\"appointUserid\":0,\"createTime\":1471233432000,\"icon\":\"\",\"takeTimes\":\"0\",\"goodjobCount\":2,\"replys\":[{\"id\":11,\"content\":\"啾啾啾\",\"createTime\":1471233460000,\"appointUserid\":0,\"publishId\":9,\"appointUserNickname\":\"\",\"userId\":10102,\"pictures\":\"\",\"userNickname\":\"carter\"}],\"replyCount\":1,\"pictures\":\"Image/20160815/1471233430776.jpeg\",\"type\":\"0\"," +
                 "\"goodjobs\":[{\"id\":7,\"createTime\":1471233446000,\"publishId\":9,\"userId\":10102,\"userNickname\":\"carter\"},{\"id\":15,\"createTime\":1472006199000,\"publishId\":9,\"userId\":10000,\"userNickname\":\"锋\"}],\"isvalid\":\"0\",\"content\":\"陈v刚回家\",\"id\":9,\"appointUserNickname\":\"\",\"nickName\":\"carter\",\"address\":\"\",\"userId\":10102,\"longitude\":\"0\",\"latitude\":\"0\"},{\"appointUserid\":0,\"createTime\":1471229159000,\"icon\":\"Image/20160819/1471570856669.jpeg\",\"takeTimes\":\"12\",\"goodjobCount\":1,\"replys\":[],\"replyCount\":0,\"pictures\":\"Image/20160815/1471229143095.jpeg;Image/20160815/1471229143130.jpeg\",\"type\":\"0\",\"goodjobs\":[{\"id\":17,\"createTime\":1472006209000,\"publishId\":7,\"userId\":10000,\"userNickname\":\"锋\"}]," +
                 "\"isvalid\":\"0\",\"content\":\"莫练车教练\",\"id\":7,\"appointUserNickname\":\"\",\"nickName\":\"锋\",\"address\":\"\",\"userId\":10000,\"longitude\":\"0\",\"latitude\":\"0\"},{\"appointUserid\":0,\"createTime\":1471227441000,\"icon\":\"Image/20160819/1471570856669.jpeg\",\"takeTimes\":\"12\",\"goodjobCount\":1,\"replys\":[],\"replyCount\":0,\"pictures\":\"Image/20160815/1471227434250.jpeg;Image/20160815/1471227434373.jpeg\",\"type\":\"0\",\"goodjobs\":[{\"id\":6,\"createTime\":1471227450000,\"publishId\":6,\"userId\":10000,\"userNickname\":\"锋\"}],\"isvalid\":\"0\",\"content\":\"know与练车教练了了魔力好归宿\",\"id\":6,\"appointUserNickname\":\"\",\"nickName\":\"锋\",\"address\":\"\",\"userId\":10000,\"longitude\":\"0\",\"latitude\":\"0\"},{\"appointUserid\":0,\"createTime\":1471224271000,\"icon\":\"Image/20160819/1471570856669.jpeg\",\"takeTimes\":\"12\",\"goodjobCount\":1,\"replys\":[],\"replyCount\":0,\"pictures\":\"Image/20160815/1471224256630.jpg;Image/20160815/1471224256945.png\",\"type\":\"0\",\"goodjobs\":[{\"id\":14,\"createTime\":1471406854000,\"publishId\":4,\"userId\":10000,\"userNickname\":\"锋\"}],\"isvalid\":\"0\",\"content\":\"墨玉兔就那么重要\",\"id\":4,\"appointUserNickname\":\"\",\"nickName\":\"锋\",\"address\":\"宝轩酒店\",\"userId\":10000,\"longitude\":\"113.2686712109507\",\"latitude\":\"23.123064640399328\"}]}}";
-        Gson gson = new GsonBuilder().enableComplexMapKeySerialization().create();
-        return gson.fromJson(str,Result.class);
+        return JSON.parseObject(str,Result.class);
     }
 
     /**

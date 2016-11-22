@@ -8,7 +8,7 @@ import android.os.Parcelable;
  * Created by xsf
  * on 2016.07.16:44
  */
-public class New implements Parcelable {
+public class NewMsg implements Parcelable {
 
     /**
      * createTime : 2016-07-21T05:57:12.133Z
@@ -131,10 +131,10 @@ public class New implements Parcelable {
         dest.writeString(this.operaUserIcon);
     }
 
-    public New() {
+    public NewMsg() {
     }
 
-    protected New(Parcel in) {
+    protected NewMsg(Parcel in) {
         this.createTime = in.readLong();
         this.id = in.readString();
         this.isRead = in.readString();
@@ -147,15 +147,15 @@ public class New implements Parcelable {
         this.operaUserIcon = in.readString();
     }
 
-    public static final Creator<New> CREATOR = new Creator<New>() {
+    public static final Creator<NewMsg> CREATOR = new Creator<NewMsg>() {
         @Override
-        public New createFromParcel(Parcel source) {
-            return new New(source);
+        public NewMsg createFromParcel(Parcel source) {
+            return new NewMsg(source);
         }
 
         @Override
-        public New[] newArray(int size) {
-            return new New[size];
+        public NewMsg[] newArray(int size) {
+            return new NewMsg[size];
         }
     };
 }

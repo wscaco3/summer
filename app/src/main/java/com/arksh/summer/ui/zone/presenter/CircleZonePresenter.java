@@ -2,6 +2,7 @@ package com.arksh.summer.ui.zone.presenter;
 
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.arksh.common.app.AppCache;
 import com.arksh.common.utils.JsonUtils;
 import com.arksh.common.utils.LogUtils;
@@ -17,8 +18,6 @@ import com.arksh.summer.ui.zone.bean.FavortItem;
 import com.arksh.summer.ui.zone.contract.CircleZoneContract;
 import com.arksh.summer.ui.zone.widget.GoodView;
 import com.aspsine.irecyclerview.bean.PageBean;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.wevey.selector.dialog.DialogOnClickListener;
 import com.wevey.selector.dialog.MDAlertDialog;
 
@@ -82,12 +81,11 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
                 if (result != null) {
                     try {
-                        Gson gson = new Gson();
-                        List<CircleItem> circleItems = gson.fromJson(JsonUtils.getValue(result.getMsg(), "list"), new TypeToken<List<CircleItem>>(){}.getType());
+                        List<CircleItem> circleItems = JSON.parseArray(JsonUtils.getValue(result.getMsg(), "list"), CircleItem.class);
                         for (int i = 0; i < circleItems.size(); i++) {
                             circleItems.get(i).setPictures(DatasUtil.getRandomPhotoUrlString(new Random().nextInt(9)));
                         }
-                        PageBean pageBean = gson.fromJson(JsonUtils.getValue(result.getMsg(), "page"), PageBean.class);
+                        PageBean pageBean = JSON.parseObject(JsonUtils.getValue(result.getMsg(), "page"), PageBean.class);
                         mView.setListData(circleItems, pageBean);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -110,7 +108,7 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
                 .setLeftButtonText("不删除")
                 .setLeftButtonTextColor(R.color.black_light)
                 .setRightButtonText("删除")
-                .setRightButtonTextColor(R.color.gray)
+                .setRightButtonTextColor(R.color.red)
                 .setTitleTextSize(16)
                 .setContentTextSize(14)
                 .setButtonTextSize(14).setOnclickListener(new DialogOnClickListener() {

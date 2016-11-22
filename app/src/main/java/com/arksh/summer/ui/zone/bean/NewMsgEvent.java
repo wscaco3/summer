@@ -5,10 +5,10 @@ package com.arksh.summer.ui.zone.bean;
  * Created by xsf
  * on 2016.07.9:35
  */
-public class NewEvent {
+public class NewMsgEvent {
     private int count;
     private String type;
-    public NewEvent(int count, String type){
+    public NewMsgEvent(int count, String type){
         this.count=count;
         this.type=type;
     }
